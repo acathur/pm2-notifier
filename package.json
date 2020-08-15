@@ -1,0 +1,31 @@
+{
+  "name": "pm2-notifier",
+  "version": "1.0.1",
+  "description": "PM2 notifier. Sending notifications via DingTalk.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acathur/pm2-notifier.git"
+  },
+  "keywords": [
+    "pm2",
+    "notifier",
+    "notification",
+    "dingtalk",
+	"dingding",
+	"钉钉"
+  ],
+  "author": "Acathur",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/acathur/pm2-notifier/issues"
+  },
+  "homepage": "https://github.com/acathur/pm2-notifier#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "pm2": "^4.4.0"
+  }
+}
