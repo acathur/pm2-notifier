@@ -3,6 +3,7 @@ const os = require('os')
 const { createHash } = require('crypto')
 const pkg = require('./package.json')
 const DingTalkNotifier = require('./provider/dingtalk')
+const FeishuNotifier = require('./provider/feishu')
 
 const ALLOWED_EVENTS = [
 	// 'log:out',
@@ -28,8 +29,8 @@ const getConfig = (processName, config) => {
 		return cacheProcessConfig[processName] || null
 	}
 
-	if (!config.dingtalk) {
-		throw new Error('config -> dingtalk is required')
+	if (!config.dingtalk && !config.feishu) {
+		throw new Error('config -> `dingtalk` or `feishu` is required')
 	}
 
 	const merged = Object.assign({}, DEF_CONFIG, config)
@@ -61,6 +62,21 @@ const sendDingTalkNotification = (data) => {
 	}, config.dingtalk)
 }
 
+const sendFeishuNotification = (data) => {
+	const {
+		config,
+		title,
+		content,
+		hostname,
+		time
+	} = data
+
+	FeishuNotifier.send({
+		title,
+		text: `${content || ''}\n@${hostname}\n@${time}`
+	}, config.feishu)
+}
+
 const processQueue = () => {
 	const len = queue.length
 
@@ -73,7 +89,15 @@ const processQueue = () => {
 	queue
 		.filter((item) => !exists.has(item.id) && exists.set(item.id, 1))
 		.forEach((item) => {
-			sendDingTalkNotification(item)
+			const { dingtalk, feishu } = item.config
+
+			if (dingtalk && dingtalk.enable != false) {
+				sendDingTalkNotification(item)
+			}
+
+			if (feishu && feishu.enable != false) {
+				sendFeishuNotification(item)
+			}
 		})
 
 	queue.length = 0

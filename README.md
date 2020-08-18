@@ -3,6 +3,7 @@
 ## Supported Messaging Tools
 
 - DingTalk (钉钉)
+- Feishu (飞书)
 
 ## Installation
 
@@ -19,11 +20,14 @@ pm2 install pm2-notifier
 | events           | `string[]` | no       | `['log:err', 'process:exception', 'process:event']` |
 | polling          | `number`   | no       | `10000` (ms)                                        |
 | max_polling_time | `number`   | no       | `60000` (ms)                                        |
-| dingtalk         | `object`   | yes      |                                                     |
+| dingtalk         | `object`   | no       |                                                     |
 | - access_token   | `string`   | yes      |                                                     |
 | - secret         | `string`   | yes      |                                                     |
 | - at_mobiles     | `string[]` | no       |                                                     |
 | - at_all         | `boolean`  | no       | `false`                                             |
+| - enable         | `boolean`  | no       | `true`                                              |
+| feishu           | `object`   | no       |                                                     |
+| - access_token   | `string`   | yes      |                                                     |
 | - enable         | `boolean`  | no       | `true`                                              |
 
 ### Example
@@ -39,9 +43,12 @@ apps:
         - log:err
         - process:event
       dingtalk:
-        access_token: # your access token
-        secret: # your secret
+        access_token: # your dingtalk access token
+        secret: # your dingtalk secret
         at_all: true
+      feishu:
+        access_token: # your feishu access token
+        enable: false # disable feishu notification
 ```
 
 Now, start your processes with `pm2 start ecosystem.config.yml`.

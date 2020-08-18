@@ -1,7 +1,7 @@
 {
   "name": "pm2-notifier",
-  "version": "1.0.1",
-  "description": "PM2 notifier. Sending notifications via DingTalk.",
+  "version": "1.1.0",
+  "description": "PM2 notifier. Sending notifications via DingTalk or Feishu.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +16,9 @@
     "notification",
     "dingtalk",
     "dingding",
-    "钉钉"
+    "feishu",
+    "钉钉",
+    "飞书"
   ],
   "author": "Acathur",
   "license": "MIT",
